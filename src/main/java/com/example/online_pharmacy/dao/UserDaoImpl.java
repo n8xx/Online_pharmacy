@@ -27,7 +27,6 @@ public class UserDaoImpl implements UserDao {
         user.setRole(Role.valueOf(rs.getString("role")));
         user.setActive(rs.getBoolean("is_active"));
         user.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-        // ...
         return user;
     }
 }
