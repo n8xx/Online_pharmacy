@@ -56,24 +56,17 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean register(User user, String password) throws ServiceException {
         try {
-            // Проверяем, существует ли пользователь
             if (userDao.findByLogin(user.getLogin()).isPresent() ||
                 userDao.findByEmail(user.getEmail()).isPresent()) {
                 return false;
             }
-            
-            // Устанавливаем дефолтные значения
             user.setRole(Role.CLIENT);
             user.setActive(true);
             user.setCreatedAt(LocalDateTime.now());
-            
-            // Хешируем пароль
+
             String passwordHash = passwordEncoder.encode(password);
             user.setPasswordHash(passwordHash);
-            
-            // Сохраняем в БД
             User savedUser = userDao.save(user);
-            
             return savedUser != null && savedUser.getId() != null;
             
         } catch (Exception e) {
