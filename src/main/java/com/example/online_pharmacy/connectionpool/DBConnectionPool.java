@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class MysqlConnectionPool {
     private static final Logger logger = LogManager.getLogger();
-    private static final String PROPERTY_PATH = "database"; // database.properties in resources
+    private static final String PROPERTY_PATH = "database"; 
 
     private ArrayBlockingQueue<Connection> freeConnections;
     private ArrayBlockingQueue<Connection> takenConnections;
@@ -23,7 +23,6 @@ public class MysqlConnectionPool {
     private static final ReentrantLock lock = new ReentrantLock();
     private static volatile MysqlConnectionPool instance;
 
-    // Singleton
     public static MysqlConnectionPool getInstance() {
         if (instance == null) {
             try {
@@ -47,7 +46,6 @@ public class MysqlConnectionPool {
             if (instance != null) {
                 throw new UnsupportedOperationException("Use getInstance() instead");
             } else {
-                // Регистрируем MySQL драйвер
                 DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
                 init();
             }
@@ -79,7 +77,7 @@ public class MysqlConnectionPool {
 
             for (int i = 0; i < initialCapacity; i++) {
                 try {
-                    // Для MySQL добавляем параметры для корректной работы
+                    
                     Connection connection = DriverManager.getConnection(
                             connectionURL + "&useSSL=false&serverTimezone=UTC",
                             user,
@@ -120,7 +118,7 @@ public class MysqlConnectionPool {
         if (takenConnections.remove(connection)) {
             try {
                 if (!connection.isClosed()) {
-                    // Сбрасываем auto-commit на случай, если его изменили
+            
                     if (!connection.getAutoCommit()) {
                         connection.rollback();
                         connection.setAutoCommit(true);
@@ -128,7 +126,7 @@ public class MysqlConnectionPool {
                     freeConnections.offer(connection);
                     logger.debug("Connection released. Free connections: {}", freeConnections.size());
                 } else {
-                    // Если соединение закрыто, создаем новое
+                   
                     replaceClosedConnection();
                 }
             } catch (SQLException e) {
@@ -161,7 +159,7 @@ public class MysqlConnectionPool {
 
     public void destroy() {
         try {
-            // Закрываем все свободные соединения
+        
             while (!freeConnections.isEmpty()) {
                 Connection connection = freeConnections.poll();
                 if (connection != null && !connection.isClosed()) {
@@ -169,7 +167,6 @@ public class MysqlConnectionPool {
                 }
             }
 
-            // Закрываем все занятые соединения
             while (!takenConnections.isEmpty()) {
                 Connection connection = takenConnections.poll();
                 if (connection != null && !connection.isClosed()) {
@@ -179,7 +176,6 @@ public class MysqlConnectionPool {
 
             logger.info("All connections closed");
 
-            // Дерегистрируем драйверы
             Enumeration<Driver> drivers = DriverManager.getDrivers();
             while (drivers.hasMoreElements()) {
                 Driver driver = drivers.nextElement();
@@ -193,7 +189,6 @@ public class MysqlConnectionPool {
         }
     }
 
-    // Утилитные методы для мониторинга
     public int getFreeConnectionsCount() {
         return freeConnections.size();
     }
