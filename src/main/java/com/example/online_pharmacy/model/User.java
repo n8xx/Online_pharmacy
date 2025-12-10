@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class User {
     private String login;
-    private String password;
+    private String passwordHash;
     private String email;
     private String firstName;
     private String lastName;
@@ -14,14 +14,13 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime lastLoginAt;
     
-    // Конструкторы
+
     public User() {
         this.createdAt = LocalDateTime.now();
         this.active = true;
     }
     
     public User(String login, String email, String firstName, String lastName, Role role) {
-        this();
         this.login = login;
         this.email = email;
         this.firstName = firstName;
@@ -29,11 +28,11 @@ public class User {
         this.role = role;
     }
     
-    // Геттеры и сеттеры
+
     public String getLogin() { return login; }
     public void setLogin(String login) { this.login = login; }
     
-    public String getPassword() { return password; }
+    public String getPassword() { return passwordHash; }
     public void setPassword(String passwordHash) { this.passwordHash = passwordHash; }
     
     public String getEmail() { return email; }

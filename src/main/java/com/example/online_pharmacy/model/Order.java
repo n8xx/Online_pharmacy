@@ -55,8 +55,7 @@ public class Order {
     
     public List<OrderItem> getItems() { return items; }
     public void setItems(List<OrderItem> items) { this.items = items; }
-    
-    // Бизнес-логика
+
     public void addItem(OrderItem item) {
         items.add(item);
         recalculateTotal();

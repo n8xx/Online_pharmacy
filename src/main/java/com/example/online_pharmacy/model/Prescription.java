@@ -27,7 +27,7 @@ public class Prescription {
         this.expiryDate = issueDate.plusDays(validDays);
     }
     
-    // Геттеры и сеттеры
+
     public User getClient() { return client; }
     public void setClient(User client) { this.client = client; }
     
@@ -59,7 +59,7 @@ public class Prescription {
         this.refillsRemaining = refillsRemaining; 
     }
     
-    // Бизнес-логика
+
     public boolean isValid() {
         return status == PrescriptionStatus.ACTIVE && 
                expiryDate != null && 

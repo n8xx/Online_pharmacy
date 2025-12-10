@@ -7,8 +7,7 @@ public class OrderItem {
     private Medicine medicine;
     private int quantity;
     private BigDecimal priceAtOrder;
-    
-    // Конструкторы
+
     public OrderItem() {}
     
     public OrderItem(Medicine medicine, int quantity) {
@@ -16,8 +15,7 @@ public class OrderItem {
         this.quantity = quantity;
         this.priceAtOrder = medicine.getPrice();
     }
-    
-    // Геттеры и сеттеры
+
     public Order getOrder() { return order; }
     public void setOrder(Order order) { this.order = order; }
     
@@ -31,8 +29,8 @@ public class OrderItem {
     public void setPriceAtOrder(BigDecimal priceAtOrder) { 
         this.priceAtOrder = priceAtOrder; 
     }
-    
-    // Бизнес-логика
+
+
     public BigDecimal getSubtotal() {
         return priceAtOrder.multiply(BigDecimal.valueOf(quantity));
     }
