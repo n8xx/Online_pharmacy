@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class DBConnectionPool {
     private static final Logger logger = LogManager.getLogger();
-    private static final String PROPERTY_PATH = "database"; 
+    private static final String PROPERTY_PATH = "database.properties";
 
     private ArrayBlockingQueue<Connection> freeConnections;
     private ArrayBlockingQueue<Connection> takenConnections;
