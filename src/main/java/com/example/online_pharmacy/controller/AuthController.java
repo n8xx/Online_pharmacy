@@ -70,11 +70,9 @@ public class AuthController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + REDIRECT_TO_LOGIN);
                 return;
             default:
-                // Если пользователь уже авторизован, показываем HOME
                 if (req.getSession().getAttribute(USER_ATTRIBUTE) != null) {
                     view = HOME_PAGE;
                 } else {
-                    // Иначе перенаправляем на логин
                     resp.sendRedirect(req.getContextPath() + REDIRECT_TO_LOGIN);
                     return;
                 }
@@ -136,13 +134,12 @@ public class AuthController extends HttpServlet {
         String lastName = req.getParameter(LAST_NAME_PARAMETER);
         
         try {
-            // Создаем нового пользователя
             User newUser = new User();
             newUser.setLogin(username);
             newUser.setEmail(email);
             newUser.setFirstName(firstName);
             newUser.setLastName(lastName);
-            // Роль по умолчанию - CLIENT
+
             
             boolean success = authService.register(newUser, password);
             
