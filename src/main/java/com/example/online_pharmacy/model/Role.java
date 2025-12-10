@@ -1,4 +1,4 @@
-package com.example.online_pharmacy.entity;
+package com.example.online_pharmacy.model;
 
 public enum Role {
   CLIENT,

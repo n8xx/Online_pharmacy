@@ -1,6 +1,5 @@
-package com.example.online_pharmacy.entity;
+package com.example.online_pharmacy.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class User {

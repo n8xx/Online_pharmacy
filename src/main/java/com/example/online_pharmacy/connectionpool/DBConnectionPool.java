@@ -1,7 +1,7 @@
-package com.onlinepharmacy.dao.connection;
+package com.example.online_pharmacy.connectionpool;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class MysqlConnectionPool {
+public class DBConnectionPool {
     private static final Logger logger = LogManager.getLogger();
     private static final String PROPERTY_PATH = "database"; 
 
@@ -21,14 +21,14 @@ public class MysqlConnectionPool {
     private ArrayBlockingQueue<Connection> takenConnections;
 
     private static final ReentrantLock lock = new ReentrantLock();
-    private static volatile MysqlConnectionPool instance;
+    private static volatile DBConnectionPool instance;
 
-    public static MysqlConnectionPool getInstance() {
+    public static DBConnectionPool getInstance() {
         if (instance == null) {
             try {
                 lock.lock();
                 if (instance == null) {
-                    instance = new MysqlConnectionPool();
+                    instance = new DBConnectionPool();
                 }
             } catch (Exception e) {
                 logger.fatal("Cannot get instance of MySQL connection pool", e);
@@ -40,7 +40,7 @@ public class MysqlConnectionPool {
         return instance;
     }
 
-    private MysqlConnectionPool() {
+    private DBConnectionPool() {
         try {
             lock.lock();
             if (instance != null) {

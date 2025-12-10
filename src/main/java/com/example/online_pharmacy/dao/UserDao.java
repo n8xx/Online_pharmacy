@@ -1,6 +1,6 @@
 package com.example.online_pharmacy.dao;
 
-import com.example.online_pharmacy.entity.User;
+import com.example.online_pharmacy.model.User;
 
 import java.util.List;
 import java.util.Optional;

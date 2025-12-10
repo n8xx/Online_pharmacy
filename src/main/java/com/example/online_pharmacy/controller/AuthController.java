@@ -1,6 +1,6 @@
 package com.example.online_pharmacy.controller;
 
-import com.example.online_pharmacy.entity.User;
+import com.example.online_pharmacy.model.User;
 import com.example.online_pharmacy.exception.ServiceException;
 import com.example.online_pharmacy.service.AuthService;
 import com.example.online_pharmacy.service.impl.AuthServiceImpl;
@@ -9,8 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
@@ -108,9 +108,8 @@ public class AuthController extends HttpServlet {
             
             if (user != null && user.isActive()) {
                 req.getSession().setAttribute(USER_ATTRIBUTE, user);
-                logger.info("User {} logged in successfully", username);
-                
-                // Перенаправляем на главную
+                logger.info("User "+username+" logged in successfully");
+
                 resp.sendRedirect(req.getContextPath() + REDIRECT_TO_HOME);
             } else {
                 req.setAttribute(ERROR_ATTRIBUTE, "Invalid username or password");
@@ -118,7 +117,7 @@ public class AuthController extends HttpServlet {
             }
             
         } catch (ServiceException e) {
-            logger.error("Login error for user: {}", username, e);
+            logger.error("Login error for user: "+ username, e);
             req.setAttribute(ERROR_ATTRIBUTE, "Authentication failed: " + e.getMessage());
             req.getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
         }
@@ -152,7 +151,7 @@ public class AuthController extends HttpServlet {
             }
             
         } catch (ServiceException e) {
-            logger.error("Registration error for user: {}", username, e);
+            logger.error("Registration error for user: "+username, e);
             req.setAttribute(ERROR_ATTRIBUTE, "Registration failed: " + e.getMessage());
             req.getRequestDispatcher(REGISTER_PAGE).forward(req, resp);
         }

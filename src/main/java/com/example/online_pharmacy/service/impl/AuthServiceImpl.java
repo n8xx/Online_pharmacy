@@ -2,8 +2,8 @@ package com.example.online_pharmacy.service.impl;
 
 import com.example.online_pharmacy.dao.UserDao;
 import com.example.online_pharmacy.dao.impl.UserDaoImpl;
-import com.example.online_pharmacy.entity.User;
-import com.example.online_pharmacy.entity.Role;
+import com.example.online_pharmacy.model.User;
+import com.example.online_pharmacy.model.Role;
 import com.example.online_pharmacy.exception.ServiceException;
 import com.example.online_pharmacy.service.AuthService;
 import org.apache.logging.log4j.LogManager;
