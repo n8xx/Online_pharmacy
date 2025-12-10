@@ -1,6 +1,7 @@
-package com.example.online_pharmacy.dao;
+package com.example.online_pharmacy.dao.impl;
 
 import com.example.online_pharmacy.connectionpool.DBConnectionPool;
+import com.example.online_pharmacy.dao.UserDao;
 import com.example.online_pharmacy.exception.DaoException;
 import com.example.online_pharmacy.model.Role;
 import com.example.online_pharmacy.model.User;
@@ -12,11 +13,11 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
+
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Long id) throws DaoException {
         String sql = "SELECT * FROM users WHERE id = ?";
-        DBConnectionPool connectionPool;
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = DBConnectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             
             ps.setLong(1, id);

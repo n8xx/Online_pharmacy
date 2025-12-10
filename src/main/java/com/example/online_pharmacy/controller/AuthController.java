@@ -1,7 +1,7 @@
 package com.example.online_pharmacy.controller;
 
-import com.example.online_pharmacy.model.User;
 import com.example.online_pharmacy.exception.ServiceException;
+import com.example.online_pharmacy.model.User;
 import com.example.online_pharmacy.service.AuthService;
 import com.example.online_pharmacy.service.impl.AuthServiceImpl;
 import jakarta.servlet.ServletException;

@@ -7,6 +7,7 @@ public class OrderItem {
     private Medicine medicine;
     private int quantity;
     private BigDecimal priceAtOrder;
+    
 
     public OrderItem() {}
     
@@ -29,7 +30,7 @@ public class OrderItem {
     public void setPriceAtOrder(BigDecimal priceAtOrder) { 
         this.priceAtOrder = priceAtOrder; 
     }
-
+    
 
     public BigDecimal getSubtotal() {
         return priceAtOrder.multiply(BigDecimal.valueOf(quantity));

@@ -6,19 +6,21 @@ import com.example.online_pharmacy.model.User;
 import com.example.online_pharmacy.model.Role;
 import com.example.online_pharmacy.exception.ServiceException;
 import com.example.online_pharmacy.service.AuthService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+
 public class AuthServiceImpl implements AuthService {
     private static final Logger logger = LogManager.getLogger(AuthServiceImpl.class);
     private static volatile AuthServiceImpl instance;
-    
+
+
     private final UserDao userDao = UserDaoImpl.getInstance();
-    private final PasswordEncoder passwordEncoder = new PasswordEncoder();
-    
+
     private AuthServiceImpl() {}
     
     public static AuthServiceImpl getInstance() {
@@ -40,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 
-                if (passwordEncoder.matches(password, user.getPasswordHash())) {
+                if (password.equals(user.getPassword())) {
                     return user;
                 }
             }
@@ -56,21 +58,24 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean register(User user, String password) throws ServiceException {
         try {
-            if (userDao.findByLogin(user.getLogin()).isPresent() ||
-                userDao.findByEmail(user.getEmail()).isPresent()) {
+            if (userDao.findByLogin(user.getLogin()).isPresent()) {
                 return false;
             }
+            
+
             user.setRole(Role.CLIENT);
             user.setActive(true);
             user.setCreatedAt(LocalDateTime.now());
+            
 
-            String passwordHash = passwordEncoder.encode(password);
-            user.setPasswordHash(passwordHash);
+            user.setPassword(password);
+
             User savedUser = userDao.save(user);
+            
             return savedUser != null && savedUser.getId() != null;
             
         } catch (Exception e) {
-            logger.error("Registration error for user: {}", user.getLogin(), e);
+            logger.info("Registration error for user: {}", user.getLogin(), e);
             throw new ServiceException("Registration failed", e);
         }
     }
@@ -87,7 +92,7 @@ public class AuthServiceImpl implements AuthService {
             }
             
         } catch (Exception e) {
-            logger.error("Error updating last login for user: {}", userId, e);
+            logger.info("Error updating last login for user: {}", userId, e);
             throw new ServiceException("Failed to update last login", e);
         }
     }
@@ -96,7 +101,6 @@ public class AuthServiceImpl implements AuthService {
     public boolean userExists(String username, String email) throws ServiceException {
         try {
             return userDao.findByLogin(username).isPresent() ||
-                   userDao.findByEmail(email).isPresent();
         } catch (Exception e) {
             logger.error("Error checking user existence", e);
             throw new ServiceException("Failed to check user existence", e);

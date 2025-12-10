@@ -3,6 +3,7 @@ package com.example.online_pharmacy.model;
 import java.time.LocalDateTime;
 
 public class User {
+    private long id;
     private String login;
     private String passwordHash;
     private String email;
@@ -13,7 +14,6 @@ public class User {
     private boolean active;
     private LocalDateTime createdAt;
     private LocalDateTime lastLoginAt;
-    
 
     public User() {
         this.createdAt = LocalDateTime.now();
@@ -21,6 +21,7 @@ public class User {
     }
     
     public User(String login, String email, String firstName, String lastName, Role role) {
+        this();
         this.login = login;
         this.email = email;
         this.firstName = firstName;
@@ -61,5 +62,8 @@ public class User {
     
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public void setId(long id) {
     }
 }

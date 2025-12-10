@@ -1,13 +1,13 @@
 package com.example.online_pharmacy.command;
 
-import com.example.online_pharmacy.command.impl.AdminRole;
 import com.example.online_pharmacy.command.impl.ClientRole;
 import com.example.online_pharmacy.command.impl.DoctorRole;
 import com.example.online_pharmacy.command.impl.PharmacistRole;
-import com.example.online_pharmacy.model.User;
-import com.example.online_pharmacy.model.Medicine;
-import com.example.online_pharmacy.model.Order;
-import com.example.online_pharmacy.model.Prescription;
+import com.example.online_pharmacy.command.impl.AdminRole;
+import com.example.online_pharmacy.entity.User;
+import com.example.online_pharmacy.entity.Medicine;
+import com.example.online_pharmacy.entity.Order;
+import com.example.online_pharmacy.entity.Prescription;
 
 
 public interface UserRole {
