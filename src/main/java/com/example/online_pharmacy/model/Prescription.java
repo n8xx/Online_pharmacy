@@ -3,17 +3,14 @@ package com.example.online_pharmacy.model;
 import java.time.LocalDateTime;
 
 public class Prescription {
+    private long id;
     private User client;
     private User doctor;
     private Medicine medicine;
     private LocalDateTime issueDate;
     private LocalDateTime expiryDate;
-    private String diagnosis;
-    private String dosageInstructions;
     private PrescriptionStatus status;
-    private int refillsRemaining;
-    
-    // Конструкторы
+
     public Prescription() {
         this.issueDate = LocalDateTime.now();
         this.status = PrescriptionStatus.ACTIVE;
@@ -26,8 +23,8 @@ public class Prescription {
         this.medicine = medicine;
         this.expiryDate = issueDate.plusDays(validDays);
     }
-    
-    // Геттеры и сеттеры
+
+
     public User getClient() { return client; }
     public void setClient(User client) { this.client = client; }
     
@@ -42,44 +39,6 @@ public class Prescription {
     
     public LocalDateTime getExpiryDate() { return expiryDate; }
     public void setExpiryDate(LocalDateTime expiryDate) { this.expiryDate = expiryDate; }
-    
-    public String getDiagnosis() { return diagnosis; }
-    public void setDiagnosis(String diagnosis) { this.diagnosis = diagnosis; }
-    
-    public String getDosageInstructions() { return dosageInstructions; }
-    public void setDosageInstructions(String dosageInstructions) { 
-        this.dosageInstructions = dosageInstructions; 
-    }
-    
-    public PrescriptionStatus getStatus() { return status; }
-    public void setStatus(PrescriptionStatus status) { this.status = status; }
-    
-    public int getRefillsRemaining() { return refillsRemaining; }
-    public void setRefillsRemaining(int refillsRemaining) { 
-        this.refillsRemaining = refillsRemaining; 
-    }
-    
-    // Бизнес-логика
-    public boolean isValid() {
-        return status == PrescriptionStatus.ACTIVE && 
-               expiryDate != null && 
-               expiryDate.isAfter(LocalDateTime.now()) &&
-               refillsRemaining > 0;
-    }
-    
-    public void useRefill() {
-        if (!isValid()) {
-            throw new IllegalStateException("Prescription is not valid");
-        }
-        refillsRemaining--;
-        if (refillsRemaining == 0) {
-            status = PrescriptionStatus.USED;
-        }
-    }
-    
-    public void extend(int additionalDays) {
-        if (expiryDate != null) {
-            expiryDate = expiryDate.plusDays(additionalDays);
-        }
-    }
+
+
 }

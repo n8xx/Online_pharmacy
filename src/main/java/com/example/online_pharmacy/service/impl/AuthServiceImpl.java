@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 public class AuthServiceImpl implements AuthService {
-    private static final Logger logger = LogManager.getLogger(AuthServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger();
     private static volatile AuthServiceImpl instance;
 
 
@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 
-                if (password.equals(user.getPassword())) {
+                if (password.equals(user.getPasswordHash())) {
                     return user;
                 }
             }
@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
             return null;
             
         } catch (Exception e) {
-            logger.error("Authentication error for user: {}", username, e);
+            logger.error("Authentication error for user: "+ username, e);
             throw new ServiceException("Authentication failed", e);
         }
     }
@@ -75,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
             return savedUser != null && savedUser.getId() != null;
             
         } catch (Exception e) {
-            logger.info("Registration error for user: {}", user.getLogin(), e);
+            logger.info("Registration error for user: "+user.getLogin(), e);
             throw new ServiceException("Registration failed", e);
         }
     }
@@ -92,7 +92,7 @@ public class AuthServiceImpl implements AuthService {
             }
             
         } catch (Exception e) {
-            logger.info("Error updating last login for user: {}", userId, e);
+            logger.info("Error updating last login for user: "+ userId, e);
             throw new ServiceException("Failed to update last login", e);
         }
     }
@@ -100,7 +100,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean userExists(String username, String email) throws ServiceException {
         try {
-            return userDao.findByLogin(username).isPresent() ||
+            return userDao.findByLogin(username).isPresent();
         } catch (Exception e) {
             logger.error("Error checking user existence", e);
             throw new ServiceException("Failed to check user existence", e);

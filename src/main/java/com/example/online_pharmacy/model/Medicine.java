@@ -14,8 +14,7 @@ public class Medicine {
     private String category;
     private LocalDate expirationDate;
     private boolean active;
-    
-    // Конструкторы
+
     public Medicine() {
         this.active = true;
     }
@@ -66,21 +65,5 @@ public class Medicine {
     
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
-    
-    // Бизнес-логика
-    public boolean isAvailable() {
-        return active && quantityInStock > 0 && 
-               (expirationDate == null || expirationDate.isAfter(LocalDate.now()));
-    }
-    
-    public void reduceStock(int quantity) {
-        if (quantity > quantityInStock) {
-            throw new IllegalArgumentException("Not enough stock");
-        }
-        this.quantityInStock -= quantity;
-    }
-    
-    public void addStock(int quantity) {
-        this.quantityInStock += quantity;
-    }
+
 }

@@ -1,9 +1,5 @@
 package com.example.online_pharmacy.command;
 
-import com.example.online_pharmacy.command.impl.ClientRole;
-import com.example.online_pharmacy.command.impl.DoctorRole;
-import com.example.online_pharmacy.command.impl.PharmacistRole;
-import com.example.online_pharmacy.command.impl.AdminRole;
 import com.example.online_pharmacy.entity.User;
 import com.example.online_pharmacy.entity.Medicine;
 import com.example.online_pharmacy.entity.Order;

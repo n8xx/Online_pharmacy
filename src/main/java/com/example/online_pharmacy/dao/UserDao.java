@@ -9,8 +9,9 @@ import java.util.Optional;
 
 public interface UserDao {
     Optional<User> findById(Long id) throws DaoException;
-    Optional<User> findByLogin(String login);
-    List<User> findByRole(Role role);
+    Optional<User> findByLogin(String login) throws DaoException;
+    Optional<User> findByEmail(String email) throws DaoException ;
+    List<User> findByRole(Role role) throws DaoException;
     User save(User user);
     boolean update(User user);
     boolean delete(Long id);

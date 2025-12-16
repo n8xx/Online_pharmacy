@@ -1,6 +1,6 @@
 package com.example.online_pharmacy.service;
 
-import com.example.online_pharmacy.entity.User;
+import com.example.online_pharmacy.model.User;
 import com.example.online_pharmacy.exception.ServiceException;
 
 public interface AuthService {

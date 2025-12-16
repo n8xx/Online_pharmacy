@@ -26,8 +26,7 @@ public class Order {
         this();
         this.client = client;
     }
-    
-    // Геттеры и сеттеры
+
     public User getClient() { return client; }
     public void setClient(User client) { this.client = client; }
     
@@ -56,23 +55,7 @@ public class Order {
     public List<OrderItem> getItems() { return items; }
     public void setItems(List<OrderItem> items) { this.items = items; }
     
-    // Бизнес-логика
-    public void addItem(OrderItem item) {
-        items.add(item);
-        recalculateTotal();
-    }
-    
-    public void removeItem(OrderItem item) {
-        items.remove(item);
-        recalculateTotal();
-    }
-    
-    private void recalculateTotal() {
-        this.totalPrice = items.stream()
-            .map(OrderItem::getSubtotal)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-    
+
     public boolean canBeCancelled() {
         return status == OrderStatus.PENDING || status == OrderStatus.PAID;
     }

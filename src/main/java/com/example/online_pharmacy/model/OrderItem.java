@@ -35,11 +35,5 @@ public class OrderItem {
     public BigDecimal getSubtotal() {
         return priceAtOrder.multiply(BigDecimal.valueOf(quantity));
     }
-    
-    public void updateQuantity(int newQuantity) {
-        if (newQuantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive");
-        }
-        this.quantity = newQuantity;
-    }
+
 }
