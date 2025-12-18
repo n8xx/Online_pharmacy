@@ -24,9 +24,9 @@ public class AuthController extends HttpServlet {
     private static final String HOME_ACTION = "home";
     private static final String ACTION_PARAMETER = "action";
     
-    private static final String LOGIN_PAGE = "/WEB-INF/view/auth/login.jsp";
-    private static final String REGISTER_PAGE = "/WEB-INF/view/auth/register.jsp";
-    private static final String HOME_PAGE = "/WEB-INF/view/home.jsp";
+    private static final String LOGIN_PAGE = "/WEB-INF/pages/login.jsp";
+    private static final String REGISTER_PAGE = "/WEB-INF/pages/register.jsp";
+    private static final String HOME_PAGE = "/WEB-INF/pages/home.jsp";
     
     private static final String REDIRECT_TO_HOME = "/auth?action=home";
     private static final String REDIRECT_TO_LOGIN = "/auth?action=login";
@@ -136,8 +136,6 @@ public class AuthController extends HttpServlet {
             User newUser = new User();
             newUser.setLogin(username);
             newUser.setEmail(email);
-            newUser.setFirstName(firstName);
-            newUser.setLastName(lastName);
 
             
             boolean success = authService.register(newUser, password);

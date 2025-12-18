@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 public class AuthServiceImpl implements AuthService {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(AuthServiceImpl.class);
     private static volatile AuthServiceImpl instance;
 
 
@@ -72,7 +72,7 @@ public class AuthServiceImpl implements AuthService {
 
             User savedUser = userDao.save(user);
             
-            return savedUser != null && savedUser.getId() != null;
+            return savedUser != null;
             
         } catch (Exception e) {
             logger.info("Registration error for user: "+user.getLogin(), e);

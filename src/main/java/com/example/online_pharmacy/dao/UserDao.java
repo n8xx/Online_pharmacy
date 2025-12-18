@@ -12,8 +12,8 @@ public interface UserDao {
     Optional<User> findByLogin(String login) throws DaoException;
     Optional<User> findByEmail(String email) throws DaoException ;
     List<User> findByRole(Role role) throws DaoException;
-    User save(User user);
-    boolean update(User user);
-    boolean delete(Long id);
+    User save(User user) throws DaoException;
+    boolean update(User user)throws DaoException;
+    boolean delete(Long id)throws DaoException;
 }
 

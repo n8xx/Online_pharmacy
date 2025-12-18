@@ -11,6 +11,7 @@ public class User {
     private Role role;
     private LocalDateTime createdAt;
     private LocalDateTime lastLoginAt;
+    private boolean isActive;
 
     public User() {
         this.createdAt = LocalDateTime.now();
@@ -54,9 +55,13 @@ public class User {
     }
 
     public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public void setActive(boolean isActive) {
-
+        this.isActive = isActive;
+    }
+     public boolean isActive(){
+        return this.isActive;
     }
 }

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 
 public class DBConnectionPool {
-    private static final Logger logger =  LogManager.getLogger();
+    private static final Logger logger =  LogManager.getLogger(DBConnectionPool.class);
     private static DBConnectionPool instance;
     
     private static final ReentrantLock creationLock = new ReentrantLock();
